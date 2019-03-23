@@ -12,25 +12,19 @@ const obj = {
     address: {
         country: 'UA',
         city: 'Dnipro',
-        street: {
-            avenue: 'Y.Gagarina',
-            house: 9
-        }
+        null: [1, ,2, 3 , undefined, null, { null: undefined}]
     },
     surname: 'Jones',
-    status: {
-        wife: 'Jane',
-        children: 3
-    }
+    status: ['Jane', 3 ]
 }
 
 
 function copyObject(obj){
-    let copy = {};
+    let copy = Array.isArray(obj) ? [] : {};
 
     for (let key in obj) {
    
-        if (typeof(obj[key]) === 'object') {
+        if (typeof obj[key] === 'object' && obj[key] !== null) {
             copy[key] = copyObject(obj[key]);
         } else {
             copy[key] = obj[key];
