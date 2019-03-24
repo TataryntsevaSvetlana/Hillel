@@ -6,7 +6,7 @@
 function askQuestion(question){ 
     const answer = prompt(question,'').trim();
 
-    const isValidAnswer = getIsAnswerValid(answer);
+    const isValidAnswer = isStringValid(answer);
     
     if (!isValidAnswer) {
         alert('invalid value');
@@ -15,7 +15,7 @@ function askQuestion(question){
     return answer;
 }
 
-function getIsAnswerValid(answer) {
+function isStringValid(answer) {
     const isString = isNaN(answer);
     const isEmptyString = answer === '';
     const wasCanceled = answer === null;
