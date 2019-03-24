@@ -1,39 +1,26 @@
-// <!DOCTYPE html>
-// <html lang="en">
-// <head>
-// <title>Document</title>
-// <script src="app.js" defer></script>
-// </head>
-// <body>
-// <h1></h1>
-// </body>
-// </html>
-
-// Есть такой index.html.
 // С помощью prompt спросить у пользователя как его зовут, проверить что пользователь что-то ввел. В H1 записываем "Hello, <<то что ввел пользователь>>!" 
 // С помощью prompt просим пользователя ввести число, от 0 до 100. Валидируем ввод.
 // добавляем в body элемент UL, а в нем столько элементов LI сколько пользователь ввел.
 // В LI цифрой должен быть написан его порядковый номер. 
 
 function askQuestion(question){ 
-    const value = prompt(question,'').trim();
+    const answer = prompt(question,'').trim();
 
-    const isValidValue = getIsValueValid(value);
+    const isValidAnswer = getIsAnswerValid(answer);
     
-    if (!isValidValue) {
+    if (!isValidAnswer) {
         alert('invalid value');
         return askQuestion('repeat');
     } 
-    return value;
+    return answer;
 }
 
-function getIsValueValid(value) {
-    
-    const isNanValue = !isNaN(value);
-    const isEmptyString = value === '';
-    const wasCanceled = value === null;
+function getIsAnswerValid(answer) {
+    const isString = isNaN(answer);
+    const isEmptyString = answer === '';
+    const wasCanceled = answer === null;
 
-    return !(isNanValue || isEmptyString || wasCanceled);
+    return isString && !isEmptyString && !wasCanceled;
 }
 
 function askNumber(question){ 
