@@ -4,33 +4,32 @@
 // при удалении/добавлении, другие li не должны изменяться
 // не забывайте про минимизацию манипуляций с ДОМом
 
-const unorderedList = document.getElementsByTagName('ul')[0];
-
-function addNewListElement(event) {
+function addNewListElement() {
     const listItem = document.createElement('li');
     listItem.innerHTML = 'Hi';
     unorderedList.appendChild(listItem);
 }
 
-unorderedList.addEventListener('click', handleClick);
-
 function handleClick(event) {
     if (event.target.tagName === 'LI') {
         if (event.altKey) {
-            deleteElement(event);
+            deleteElement(event.target);
         } else {
-            toggleBackground(event)
+            toggleBackground(event.target)
         }
     }
 }
 
-function toggleBackground(event) {
-    event.target.style.background = event.target.style.background === 'red' ? 'yellow' : 'red';
+function toggleBackground(target) {
+    target.style.background = event.target.style.background === 'red' ? 'yellow' : 'red';
 };
 
-function deleteElement(event) {
-    event.target.remove();
+function deleteElement(target) {
+    target.remove();
 };
+
+const unorderedList = document.getElementsByTagName('ul')[0];
+unorderedList.addEventListener('click', handleClick);
 
 const button = document.getElementsByTagName('button')[0];
 button.addEventListener('click', addNewListElement);
