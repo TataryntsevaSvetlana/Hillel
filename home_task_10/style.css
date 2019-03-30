@@ -1,0 +1,14 @@
+table,
+.deleteButton {
+    margin: 0 auto;
+}
+
+th,
+td,
+.table-footer {
+    text-align: center;
+}
+
+.deleteButton {
+    background-color: lightgray;
+}
