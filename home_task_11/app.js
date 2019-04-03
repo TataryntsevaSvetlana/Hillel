@@ -17,22 +17,22 @@ function calculator(number) {
 
     return {
         add: function(value) {
-            return result = primaryValue + value;
+            return primaryValue + value;
         },  
         sub: function(value) {
-            return result = primaryValue - value;
+            return primaryValue - value;
         },
         divide: function(value) {
-            return result = primaryValue / value;
+            return primaryValue / value;
         },
         mult: function(value) {
-            return result = primaryValue * value;
+            return primaryValue * value;
         },  
         set: function(value) {
             primaryValue = value;
         },
         get: function() {
-            return result = primaryValue;
+            return primaryValue;
         }
     }
 }
