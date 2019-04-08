@@ -15,9 +15,9 @@
 // averageMark() - которая возвращает среднюю оценку по группе
 // completePercent() - процент сданных работ по группе
 
-function Student(name, mark){
+function Student(name, marks){
     this.name = name;
-    this.mark = mark;
+    this.marks = marks;
     this.averageMark = averageMark;
     this.worksDone = woksDone;
     this.addMark = addMark;
@@ -32,18 +32,17 @@ const students = [new Student('Student1', [10,0,9,7,9,8]),
 
 console.log(students);
 
-function addMark(newMark){
-    this.mark.push(newMark);
+function addMark(...rest){
+    this.marks.push(...rest);
 }
 
 function averageMark(){
-    const sumAllValue = this.mark.reduce((sum, current) => sum + current, 0);
-    return Math.round(sumAllValue / this.mark.length);
+    const sumAllValue = this.marks.reduce((sum, current) => sum + current, 0);
+    return Math.round(sumAllValue / this.marks.length);
 }
 
 function woksDone() {
-    const newArr = this.mark.filter((item) => item > 0); 
-    return  newArr.length;  
+    return  (this.marks.filter((item) => item > 0)).length;  
 }
 
 function getAverageMarkGroup(arr){
@@ -52,9 +51,13 @@ function getAverageMarkGroup(arr){
 }
 
 function getCompletePercentGroup(arr){
-    const quantityHomeWorks = arr.reduce((sum, item) => sum + item.mark.length, 0);
-    const quantityHomeWorksDone = arr.reduce((sum, item) => sum + item.worksDone(), 0);
-    const percentHomeWorksDone = (quantityHomeWorksDone / quantityHomeWorks) * 100;
-  
-    return percentHomeWorksDone.toFixed(2);
+
+    const result = arr.reduce((accumulator, currentValue) => {
+        accumulator.totalWorks += currentValue.marks.length;
+        accumulator.worksDoneCount += currentValue.worksDone();
+            
+        return accumulator;
+    }, {totalWorks: 0, worksDoneCount: 0});
+
+    return ((result.worksDoneCount/result.totalWorks) * 100).toFixed(2) + ' percents';
 }
