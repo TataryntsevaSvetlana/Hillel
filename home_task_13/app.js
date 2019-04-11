@@ -30,73 +30,44 @@
 // // А сколько теперь стоит?
 // console.log("Price with sauce: “ + hamburger.calculatePrice());
 
-Hamburger.CHEES = 'CHEES';
-Hamburger.CHEES_COST = 10;
-Hamburger.CHEES_CALORIES = 20;
 
-Hamburger.SALAD = 'SALAD';
-Hamburger.SALAD_COST = 20;
-Hamburger.SALAD_CALORIES = 5;
+Hamburger.ingridients = {
+    chees: {price: 10, calories: 20, name: 'chees'},
+    salad: {price: 20, calories: 5, name: 'salad'},
+    potatoes: {price: 15, calories: 10, name: 'potatoes'},
+    dressing: {price: 15, calories: 0, name: 'dressing'},
+    souse: {price: 20, calories: 5, name: 'souse'},
+};
 
-Hamburger.POTATOES = 'POTATOES';
-Hamburger.POTATOES_COST = 15;
-Hamburger.POTATOES_CALORIES = 10;
-
-Hamburger.DRESSING = 'DRESSING';
-Hamburger.DRESSING_COST = 15;
-Hamburger.DRESSING_CALORIES = 0;
-
-Hamburger.SOUSE = 'SOUSE';
-Hamburger.SOUSE_COST = 20;
-Hamburger.SOUSE_CALORIES = 5;
-
-Hamburger.SIZE_SMALL = 'SIZE_SMALL';
-Hamburger.SIZE_SMALL_COST = 50;
-Hamburger.SIZE_SMALL_CALORIES = 20;
-
-Hamburger.SIZE_BIG = 'SIZE_BIG';
-Hamburger.SIZE_BIG_COST = 100;
-Hamburger.SIZE_BIG_CALORIES = 40;
-
-
-function Hamburger(size, ingridient){
-    this._price = 0;
-    this._calories = 0;
-
-    if (size === Hamburger.SIZE_SMALL) {
-        this._price += Hamburger.SIZE_SMALL_COST;
-        this._calories += Hamburger.SIZE_SMALL_CALORIES;
-
-    } else {
-        this._price += Hamburger.SIZE_BIG_COST;
-        this._calories += Hamburger.SIZE_BIG_CALORIES;
-    }
-       
-    this.addIngridient(ingridient);    
+Hamburger.sizes = {
+    small: {price: 50, calories: 20, name: 'small hamburger'},
+    big: {price: 100, calories: 40, name: 'big hamburger'},
 }
 
-Hamburger.prototype._updateValues = function(price, calories) {
+function Hamburger(size, ingridient) {
+    this._price = 0;
+    this._calories = 0;
+    this._ingridients = [];
+    this._size;
+
+    this._calculateCaloriesAndPriceBySize(size);
+    this.addIngridient(ingridient);
+}
+
+Hamburger.prototype._calculateCaloriesAndPriceBySize = function(size) {
+    this._calculationPriceAndCalories(size.price, size.calories)
+    this._size = size.name;
+}
+
+Hamburger.prototype._calculationPriceAndCalories = function(price, calories) {
     this._price += price;
     this._calories += calories;
 }
- 
+
 Hamburger.prototype.addIngridient = function(ingridient) {
-    if (ingridient === Hamburger.CHEES) {
-        this._updateValues(Hamburger.CHEES_COST, Hamburger.CHEES_CALORIES)
-
-    } else if (ingridient === Hamburger.SALAD) {
-        this._updateValues(Hamburger.SALAD_COST, Hamburger.SALAD_CALORIES)
-
-    } else if (ingridient === Hamburger.POTATOES) {
-        this._updateValues(Hamburger.POTATOES_COST, Hamburger.POTATOES_CALORIES)
-
-    } else if (ingridient === Hamburger.DRESSING) {
-        this._updateValues(Hamburger.DRESSING_COST, Hamburger.DRESSING_CALORIES)
-
-    } else if (ingridient === Hamburger.SOUSE) {
-        this._updateValues(Hamburger.SOUSE_COST, Hamburger.SOUSE_CALORIES)
-    }
-} 
+   this._calculationPriceAndCalories(ingridient.price, ingridient.calories);
+   this._ingridients.push(ingridient);
+}
 
 Hamburger.prototype.calculatePrice = function calculatePrice() {
     return ('Price: ' +  this._price);
@@ -106,8 +77,9 @@ Hamburger.prototype.calculateCalories = function calculateCalories() {
     return ('Calories: ' + this._calories);
 };
 
-const hamburger = new Hamburger(Hamburger.SIZE_BIG, Hamburger.POTATOES);
+const hamburger = new Hamburger(Hamburger.sizes.big, Hamburger.ingridients.chees);
 
 console.log('Calories: ' + hamburger.calculateCalories());
 console.log('Price: ' + hamburger.calculatePrice());
+console.log(hamburger);
 
