@@ -27,22 +27,9 @@ div {
     outline-color: blue;
 }
 
-/* .accordeon-body {
-    position: absolute;
-    top: 0;
-    left: 0;
-} */
-
 .hidden {
     display: none;
 }
 
-.visible {
-    display: block;
-}
-/* .hidden-block {
-    display: block;
-    top: 50px;
-    transition: top .5s linear;
-} */
+
 
