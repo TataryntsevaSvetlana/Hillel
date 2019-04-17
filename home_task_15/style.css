@@ -1,0 +1,46 @@
+#container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 700px;
+}
+
+#prev,
+#next {
+    cursor: pointer;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0; 
+}
+
+li {
+    display: none;
+    list-style: none;
+    width: 600px;
+    height: 400px; 
+}
+
+img {
+    height: 100%;
+    width: 100%; 
+}
+
+.active {
+    display: block;
+    animation: active 1.5s;
+}
+
+@keyframes active {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+
+
+
