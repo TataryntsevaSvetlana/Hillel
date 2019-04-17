@@ -27,7 +27,7 @@ class Gallery{
         setTimeout(() => {
             const nextSlide = this.getNextSlide();     
             this.render(nextSlide);
-            
+            this.showSlides();
          }, this.config.delay); 
     }
 
