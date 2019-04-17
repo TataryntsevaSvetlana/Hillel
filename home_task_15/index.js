@@ -24,7 +24,7 @@ class Gallery{
     }
 
     showSlides() {
-        setInterval(() => {
+        setTimeout(() => {
             const nextSlide = this.getNextSlide();     
             this.render(nextSlide);
             
