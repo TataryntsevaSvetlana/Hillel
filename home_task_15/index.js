@@ -20,7 +20,7 @@ class Gallery{
         document.getElementById('prev').addEventListener('click', () => { this.onPrevClick()});
         document.getElementById('next').addEventListener('click', () => { this.onNextClick()});
         this.render(this.activeSlide);
-        // this.showSlides();
+        this.showSlides();
     }
 
     showSlides() {
