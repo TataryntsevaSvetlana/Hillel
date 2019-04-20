@@ -1,0 +1,45 @@
+#album-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+#album-container {
+  width: 700px;
+  height: 700px;
+  outline: 1px solid gray;
+  margin: 0 auto;
+}
+
+#album-container > div > img {
+  list-style: none;
+  width: 700px;
+  height: 700px; 
+  overflow: hidden;
+}
+
+#album-list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+#album-list > li {
+  list-style: none;
+  width: 100px;
+  height: 100px; 
+  outline: 1px solid gray;
+  padding: 0; 
+  margin: 10px 5px 10px 5px;
+  cursor: pointer;
+}
+
+#album-list > li >  img {
+  height: 100%;
+  width: 100%; 
+}
+
+
+
+
+
