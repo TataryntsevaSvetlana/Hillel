@@ -10,32 +10,37 @@ class Album{
     }
 
     init() {
-        document.getElementById('album-list').addEventListener('mouseover', this.onMouseOver.bind(this));
+        this.element.classList.add('album-container');
+        this.element.addEventListener('mouseover', this.onMouseOver.bind(this));
+        this.imageWrapper = document.createElement('li');
+        this.imageWrapper.classList.add('active');
+        this.element.appendChild(this.imageWrapper);
     }
 
     onMouseOver(event) {    
-
-        if (event.target.tagName === 'IMG') {
-           const content = event.target.parentElement.innerHTML;
-           this.render(content);
+        const shouldIgnore = event.target.parentNode.classList.contains('active');
+        
+        if (event.target.tagName === 'IMG' && !shouldIgnore) {  
+           const contentSrc = event.target.getAttribute('src');
+           this.render(contentSrc);
         }
     }
 
-    render(content){
-        const imageContainer = document.getElementById('album-container');
-        const contentWrapper = document.createElement('div');
-        contentWrapper.innerHTML = content;
+    render(contentSrc){
+        const image = document.createElement('img');
+        image.setAttribute('src', contentSrc);
+        const child = this.imageWrapper.childNodes[0];
 
-        if (imageContainer.firstChild) {
-            imageContainer.replaceChild(contentWrapper, imageContainer.childNodes[0]);  
+        if (child) {
+            this.imageWrapper.replaceChild(image, child);  
         } else {
-            imageContainer.appendChild(contentWrapper);
-        }     
+            this.imageWrapper.appendChild(image);
+        }
     }
 }
 
 
-const album = new Album(document.getElementById('album-wrapper'));
+const album = new Album(document.getElementById('album-container'));
 
 
 
