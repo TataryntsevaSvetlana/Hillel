@@ -1,0 +1,52 @@
+.tabset-container {
+  width: 700px;
+  height: 300px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.tabset-element  {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  padding: 0 15px;
+  margin-right: -5px;
+  cursor: pointer;
+}
+
+.tabset-element:hover {
+  border: 1px solid  rgb(145, 149, 153);
+  border-bottom-color: transparent;
+}
+
+.tabset-body {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 700px;
+  height: 260px;
+  z-index: -1;
+}
+
+.tabset-element.open  .tabset-body,
+.tabset-element.open {
+  background-color: rgb(224, 234, 238);
+  border: 1px solid rgb(145, 149, 153);
+}
+
+.tabset-element.open  .tabset-body{
+  display: block;
+}
+
+.tabset-element.open  {
+  border-bottom-width: 0;
+  z-index: 1;
+}
+
+
+
+
+
+
