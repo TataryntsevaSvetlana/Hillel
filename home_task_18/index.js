@@ -18,16 +18,19 @@ class Users{
     }
 
     static ROOT_URL = 'https://jsonplaceholder.typicode.com/';
+    static PATH_URL_USERS = 'users';
+    static PATH_URL_USERS_POSTS = 'posts';
+    static QUERY_PARAM_USER_ID = '?userId=';
 
     init() {
-        const url = Users.ROOT_URL + 'users';
-        this.fetchUsersList(url, (response) => this.renderUsersList(response));
-        document.getElementById('usersListTable').addEventListener('click', this.onClick.bind(this));
+        const url = Users.ROOT_URL + Users.PATH_URL_USERS;
+        this.sendRequest(url, (response) => this.renderUsersList(response));
+        this.element.addEventListener('click', this.onClick.bind(this));
     }
 
-    fetchUsersList(url, callback) {
+    sendRequest(url, callback) {
         const xhr = new XMLHttpRequest();
-        xhr.open( 'get', url, true);
+        xhr.open('get', url, true);
         xhr.onload = function() {
             if (xhr.status === 200) {
                 callback( JSON.parse(xhr.responseText));
@@ -39,28 +42,24 @@ class Users{
     }
 
     renderUsersList(users){
-        const userTemplateTr = document.getElementById('userTemplate').innerHTML;
-        
-        users.forEach(function(user) {
-            const userTr = document.createElement('tr');
-            
-            userTr.innerHTML = userTemplateTr
+        users.forEach((user) => {      
+            const tr = document.getElementById('userTemplate').innerHTML
+                .replace('{{id}}', user.id)
                 .replace('{{name}}', user.name)
                 .replace('{{phone}}', user.phone)
                 .replace('{{email}}', user.email)
 
-            userTr.dataset.id = user.id;
-            document.getElementById('usersListTable').lastElementChild.appendChild(userTr);
+            this.element.children[1].innerHTML += tr;
         });
     }
 
     onClick(event) {
         if (event.target.parentElement.tagName === 'TR') { 
-            if (event.target.parentElement.dataset.id) {
-                const targetId = event.target.parentElement.dataset.id;
-                const url = Users.ROOT_URL + 'posts' + '?userId=' + targetId;
+            if (event.target.parentElement.dataset.userId) {
+                const targetId = event.target.parentElement.dataset.userId;
+                const url = Users.ROOT_URL + Users.PATH_URL_USERS_POSTS + Users.QUERY_PARAM_USER_ID + targetId;
 
-                this.fetchUsersList(url, (response) => {this.showUsersPosts(response)});
+                this.sendRequest(url, this.showUsersPosts)
             }
         }
     }
