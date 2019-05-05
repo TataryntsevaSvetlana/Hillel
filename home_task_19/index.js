@@ -68,7 +68,6 @@ class Users {
             .then(result => this.renderUsersList(result));
     }
 
-
     renderUsersList(users){
         this.tbody.innerHTML = users.map((user) => {
             return document.getElementById('userTemplate').innerHTML
@@ -80,22 +79,21 @@ class Users {
     }
 
     onClick(event) {
-        if (event.target.parentElement.tagName === 'TR') { 
-            if (event.target.parentElement.dataset.userId) {
-                const targetId = event.target.parentElement.dataset.userId;
+        const parentEvent = event.target.parentElement;
+        if (parentEvent.tagName === 'TR') { 
+            if (parentEvent.dataset.userId) {
+                const targetId = parentEvent.dataset.userId;
                 
-                this.fetchPosts(targetId)
-                .then(posts => this.renderUserPosts(posts))
-                .then(() => this.fetchAlbums(targetId))
-                .then(albums => this.renderUserAlbums(albums))
-                .catch(err => alert(JSON.stringify(err)))
+                this.fetchData(Users.ROOT_URL + Users.PATH_URL_USERS_POSTS + Users.QUERY_PARAM_USER_ID + targetId)
+                    .then(posts => this.renderUserPosts(posts))
+                    .then(() => this.fetchData(Users.ROOT_URL + Users.PATH_URL_USERS_ALBUMS + Users.QUERY_PARAM_USER_ID  + targetId))
+                    .then(albums => this.renderUserAlbums(albums))
+                    .catch(err => alert(JSON.stringify(err)))
             }
         }
     }
 
-    fetchPosts(targetId){
-        const url = Users.ROOT_URL + Users.PATH_URL_USERS_POSTS + Users.QUERY_PARAM_USER_ID + targetId;
-
+    fetchData (url){
         return sendRequest('get', url);
     }
 
@@ -103,13 +101,6 @@ class Users {
         this.userPosts.innerHTML = posts.map((post) => {
             return '<li>'+ post.title + '</li>'
         }).join('\n');
-
-    }
-
-    fetchAlbums(targetId){
-        const url = Users.ROOT_URL + Users.PATH_URL_USERS_ALBUMS + Users.QUERY_PARAM_USER_ID  + targetId;
-
-        return sendRequest('get', url);
     }
 
     renderUserAlbums(albums) {
@@ -117,7 +108,6 @@ class Users {
             return '<li>'+ album.title + '</li>'
         }).join('\n');
     }
-
 }
 
 const usersList = new Users(
