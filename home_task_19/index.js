@@ -79,10 +79,10 @@ class Users {
     }
 
     onClick(event) {
-        const parentEvent = event.target.parentElement;
-        if (parentEvent.tagName === 'TR') { 
-            if (parentEvent.dataset.userId) {
-                const targetId = parentEvent.dataset.userId;
+        const parentEl = event.target.parentElement;
+        if (parentEl.tagName === 'TR') { 
+            if (parentEl.dataset.userId) {
+                const targetId = parentEl.dataset.userId;
                 
                 this.fetchData(Users.ROOT_URL + Users.PATH_URL_USERS_POSTS + Users.QUERY_PARAM_USER_ID + targetId)
                     .then(posts => this.renderUserPosts(posts))
