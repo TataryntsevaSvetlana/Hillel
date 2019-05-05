@@ -1,0 +1,22 @@
+.u-full-width th,
+.u-full-width td {
+  text-align: center;
+  border: 2px solid black;
+  padding: 10px;
+  width: 200px;
+  height: 30px;
+}
+
+.u-full-width th {
+  background-color: rgb(145, 162, 168);
+}
+
+.u-full-width td,
+ul li {
+  cursor: pointer;
+}
+
+.u-full-width tr:hover,
+ul li:hover {
+  background-color: #9ea6a8;
+} 
