@@ -26,17 +26,18 @@ function resetContactForm(){
 };
 
 function addContact(contact){
+    contact.id = Date.now();
+
+
     const contactTr = document.createElement('tr');
+    contactTr.id = 'contact' + contact.id;
 
     contactTr.innerHTML = contactTemplate
                         .replace('{{Name}}', contact.name)
                         .replace('{{Phone}}', contact.phone)
-                        .replace('{{Age}}', contact.age);
+                        .replace('{{Age}}', contact.age)
+                        .replace('{{Id}}', contact.id)
 
-    const deleteContactBtn = createNewElement('button', 'delete', 'delete', 'deleteButton'); 
-    const contactDeleteTd = createNewElement('td', deleteContactBtn.outerHTML);
-    
-    contactTr.appendChild(contactDeleteTd);
     contactsList.appendChild(contactTr);
 };
 
@@ -45,21 +46,14 @@ function onAddContactBtnClick(){
 };
 
 function onTableBodyClick(event){
-    if (event.target.tagName === 'BUTTON'
-        && event.target.value === 'delete') {
-        deleteContact(event.target);
+    if (event.target.tagName === 'BUTTON') {
+        deleteContact(event.target.attributes['contact-id'].value);
     }
 };
 
-function createNewElement(tagName, content, value, className) {
-    const element = document.createElement(tagName);
-    element.innerHTML = content;
-    element.value = value;
-    element.className = className;
-    return element;
-}
 
-function deleteContact(target){
-    target.parentNode.parentNode.remove();
+function deleteContact(contactId){
+    const element = document.getElementById('contact' + contactId)
+    element.remove();
 };
 
