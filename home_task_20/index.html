@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" href="./skeleton.css">
+    <link rel="stylesheet" href="./style.css">
+    <script async src="index.js"></script>
+</head>
+
+<body>
+    <table class="u-full-width">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id='contactsList'></tbody>
+        <tfoot> 
+            <tr>
+                <td>
+                    <input type='text' id='nameInput'>
+                </td>
+                <td>
+                    <input type='text' id='surnameInput'>
+                </td>
+                <td>
+                    <input type='number' id='phoneInput'>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class='table-footer'>
+                    <button id='addContactBtn'>Add contact</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+    <script type='text/template' id='contactTemplate' class='id_active'>
+        <td>{{Name}}</td>
+        <td>{{Surname}}</td>
+        <td>{{Phone}}</td>
+        <td>
+            <button contact-id='{{Id}}'>Delete</button>
+        </td>
+    </script>
+ 
+</body>
+</html>
