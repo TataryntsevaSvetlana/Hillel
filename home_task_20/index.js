@@ -38,13 +38,11 @@ function fetchData(){
 };
 
 function setData(data){
-    contacts = data;
-    return contacts;
+    return contacts = data;
 }
 
 function renderData(data){
-    console.log(data);
-    document.getElementById('contactsList').innerHTML = data.map((el) => {
+    contactsList.innerHTML = data.map((el) => {
         const info = contactTemplate
             .replace('{{Name}}', el.name)
             .replace('{{Surname}}', el.surname)
@@ -86,8 +84,12 @@ function resetContactForm(){
 
 function addContact(contact){
    return fetch(DATA_URL, {
-       method: 'POST',
-       body: JSON.stringify(contact)
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(contact)
    })
 };
 
@@ -113,6 +115,10 @@ function toggleState(el){
     contact.is_active = !contact.is_active
 
     return fetch(DATA_URL + '/' + contact.id, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         method: 'PUT',
         body: JSON.stringify(contact)
     })
