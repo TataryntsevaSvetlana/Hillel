@@ -24,7 +24,7 @@ let contacts = [];
 init();
 
 function init(){
-    addContactBtn.addEventListener('click', onAddContactBtnClick);
+    addContactBtn.addEventListener('submit', onAddContactBtnClick);
     contactsList.addEventListener('click', onTableBodyClick);
 
     fetchData();
@@ -43,21 +43,19 @@ function setData(data){
 
 function renderData(data){
     contactsList.innerHTML = data.map((el) => {
-        const info = contactTemplate
+
+        return contactTemplate
             .replace('{{Name}}', el.name)
             .replace('{{Surname}}', el.surname)
             .replace('{{Phone}}', el.phone)
             .replace('{{Id}}', el.id)
-
-        return `
-            <tr 
-                data-id = ${el.id}
-                class = ${el.is_active ? 'active' : ''}
-            >${info}</tr>`
+            .replace('{{class}}', el.is_active ? 'active' : '')
     }).join('\n');
 }
 
-function onAddContactBtnClick(){
+function onAddContactBtnClick(event){
+    event.preventDefault();
+
     submitContact();
 };
 
@@ -67,7 +65,6 @@ function submitContact(){
         surname: contactSurnameInput.value,
         phone: contactPhoneInput.value,
         is_active: true,
-        id: Date.now()
     };
     
     addContact(contact)
@@ -95,10 +92,10 @@ function addContact(contact){
 
 function onTableBodyClick(event){
     if (event.target.tagName === 'BUTTON') {
-        deleteContact(event.target.attributes['contact-id'].value)
+        deleteContact(event.target.parentNode.parentNode.dataset.contactId)
             .then(fetchData);
     } else {
-        toggleState(event.target)
+        toggleState(event.target.parentNode.dataset.contactId)
             .then(fetchData);
     }
 };
@@ -109,10 +106,9 @@ function deleteContact(contactId){
     })
 };
 
-function toggleState(el){
-    const id = el.parentElement.dataset.id;
+function toggleState(id){
     const contact = contacts.find(el => el.id === id);
-    contact.is_active = !contact.is_active
+    contact.is_active = !contact.is_active;
 
     return fetch(DATA_URL + '/' + contact.id, {
         headers: {

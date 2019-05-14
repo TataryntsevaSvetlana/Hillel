@@ -45,12 +45,12 @@
 
 
     <script type='text/template' id='contactTemplate' class='id_active'>
-        <td>{{Name}}</td>
-        <td>{{Surname}}</td>
-        <td>{{Phone}}</td>
-        <td>
-            <button contact-id='{{Id}}'>Delete</button>
-        </td>
+        <tr data-contact-id='{{Id}}' class='{{class}}'>
+            <td>{{Name}}</td>
+            <td>{{Surname}}</td>
+            <td>{{Phone}}</td>
+            <td><button type='button'>Delete</button></td>
+        </tr>
     </script>
  
 </body>

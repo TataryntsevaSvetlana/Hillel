@@ -5,8 +5,8 @@
 .u-full-width {
     width: 600px;
 }
-th,
-td,
+.u-full-width th,
+.u-full-width td,
 .table-footer {
     text-align: center;
 }
@@ -17,4 +17,7 @@ td,
 .active {
     font-weight: 700;
     color: green;
+}
+.u-full-width tr {
+    cursor: pointer;
 }
