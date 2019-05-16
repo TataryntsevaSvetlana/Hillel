@@ -18,7 +18,6 @@ const contactPhoneInput = document.getElementById('phoneInput');
 const contactSurnameInput = document.getElementById('surnameInput');
 const contactTemplate = document.getElementById('contactTemplate').innerHTML;
 const tfootTr = document.getElementsByTagName('tfoot')[0].children[0];
-const saveButton = document.createElement('button');
 
 let contacts = [];
 init();
@@ -64,7 +63,6 @@ function submitContact(){
         name: contactNameInput.value,
         surname: contactSurnameInput.value,
         phone: contactPhoneInput.value,
-        is_active: true,
     };
     
     addContact(contact).then(fetchData);
@@ -94,16 +92,12 @@ function onTableBodyClick(event){
         deleteContact(event.target.parentNode.parentNode.dataset.contactId)
             .then(fetchData);
 
-    } else if (event.target.tagName === 'BUTTON' && event.target.value === 'edit'){ // обработчик на кнопку edit
-        editContact(event.target.parentNode.parentNode.dataset.contactId)
-
-        // .then(fetchData);
-
-
-     } else {
-        toggleState(event.target.parentNode.dataset.contactId)
-            .then(fetchData);
-    }
+    } else if (event.target.tagName === 'BUTTON' && event.target.value === 'edit'){ 
+        renderEditForm(event.target.parentNode.parentNode);
+    } else {
+        showContactInfo(event.target.parentNode.parentNode.dataset.contactId)
+            .then(fetchData(DATA_URL + '/' + contactId));
+     }
 };
 
 function deleteContact(contactId){
@@ -112,27 +106,7 @@ function deleteContact(contactId){
     })
 };
 
-function createForm(){                                   // клонирую строку с инпутами (из таблицы), добавляю кнопку сохранить
-    const editForm = tfootTr.cloneNode();
-    saveButton.classList.add('save');
-    editForm.appendChild(saveButton);
-    console.dir(editForm);
-    return editForm;
-}
-
-function editContact(contactId){   // пытаюсь вставить склонированую строку с инпутами под строкой выбранного контакта
-    
-    createForm();
-    const form = findElement(contactId);
-    form.appendChild(editForm);
-    console.dir(form);
-};
-
-
-function toggleState(id){
-    findElement(id);
-    contact.is_active = !contact.is_active;
-
+function updateContact(contact) {
     return fetch(DATA_URL + '/' + contact.id, {
         headers: {
             'Accept': 'application/json',
@@ -143,7 +117,54 @@ function toggleState(id){
     })
 }
 
-function findElement(id) {
+function showContactInfo(contactId){
+    const popUp = document.getElementById('popUp');
+    popUp.classList.add('activePopUp');
+    const contact = findContact(contactId);
+    return contact;
+};
+
+
+function createEditForm(){                                   
+    const editForm = tfootTr.cloneNode(true);
+    const saveButton = document.createElement('button');
+    saveButton.classList.add('save');
+    saveButton.textContent = 'Save';
+    const td = document.createElement('td');
+    td.appendChild(saveButton);
+    editForm.appendChild(td);
+
+    return editForm;
+}
+
+function renderEditForm(contactNode){   
+
+    const contactId = contactNode.dataset.contactId;
+    const editForm = createEditForm();
+    const contact = findContact(contactId);
+    const nameInput = editForm.querySelector('#nameInput');
+    const surnameInput = editForm.querySelector('#surnameInput');
+    const phoneInput = editForm.querySelector('#phoneInput');
+    const saveButton = editForm.querySelector('button');
+
+    saveButton.addEventListener('click', () => { updateContact({
+        id: contactId,
+        name: nameInput.value,
+        surname: surnameInput.value,
+        phone: phoneInput.value,
+        email: contact.email,
+        is_active: contact.is_active,
+    }).then(() => { fetchData(); }) });
+
+    nameInput.value = contact.name;
+    surnameInput.value = contact.surname;
+    phoneInput.value = contact.phone;
+
+    contactNode.parentNode.insertBefore(editForm, contactNode.nextSibling);
+};
+
+function findContact(id) {
     const contact = contacts.find(el => el.id === id);
+    console.dir(contact)
     return contact;
 }

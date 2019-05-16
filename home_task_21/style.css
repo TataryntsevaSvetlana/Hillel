@@ -2,9 +2,7 @@
 .deleteButton {
     margin: 0 auto;
 }
-.u-full-width {
-    width: 600px;
-}
+
 .u-full-width th,
 .u-full-width td,
 .table-footer {
@@ -14,10 +12,23 @@
 .u-full-width .button {
     background-color: lightgray;
 }
-.u-full-width .active {
-    font-weight: 700;
-    background-color: rgb(243, 240, 240);
-}
+
 .u-full-width tr {
     cursor: pointer;
+}
+
+.pop-up {
+    display: none;
+    background-color: rgba(137, 180, 214, 0.9);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -75px;
+    margin-left: -200px;
+    width: 400px;
+    height: 150px;
+    border: 1px solid black;
+} 
+.activePopUp {
+    display: block;
 }
