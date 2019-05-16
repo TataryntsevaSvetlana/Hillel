@@ -95,8 +95,11 @@ function onTableBodyClick(event){
     } else if (event.target.tagName === 'BUTTON' && event.target.value === 'edit'){ 
         renderEditForm(event.target.parentNode.parentNode);
     } else {
-        showContactInfo(event.target.parentNode.parentNode.dataset.contactId)
-            .then(fetchData(DATA_URL + '/' + contactId));
+        const contactId = event.target.parentNode.dataset.contactId;
+
+        fetch(DATA_URL + '/' + contactId)
+          .then((resp) => resp.json())
+          .then(showContactInfo);
      }
 };
 
@@ -117,11 +120,16 @@ function updateContact(contact) {
     })
 }
 
-function showContactInfo(contactId){
+// function showContactInfo(contact){
+//     const popUp = document.getElementById('wrapper');
+//     popUp.classList.add('activeWrapper');
+//     popUp.innerHTML = JSON.stringify(contact);
+// };
+
+function showContactInfo(contact) {
     const popUp = document.getElementById('popUp');
     popUp.classList.add('activePopUp');
-    const contact = findContact(contactId);
-    return contact;
+    popUp.innerHTML = JSON.stringify(contact);
 };
 
 
