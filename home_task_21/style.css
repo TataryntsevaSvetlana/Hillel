@@ -1,0 +1,23 @@
+.u-full-width,
+.deleteButton {
+    margin: 0 auto;
+}
+.u-full-width {
+    width: 600px;
+}
+.u-full-width th,
+.u-full-width td,
+.table-footer {
+    text-align: center;
+}
+
+.u-full-width .button {
+    background-color: lightgray;
+}
+.u-full-width .active {
+    font-weight: 700;
+    background-color: rgb(243, 240, 240);
+}
+.u-full-width tr {
+    cursor: pointer;
+}
