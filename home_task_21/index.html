@@ -13,9 +13,6 @@
 
 <body>
     <form id="newContactForm">
-        <!-- <div id='wrapper' class='wrapper'> -->
-            <div id='popUp' class="pop-up"></div>
-        <!-- </div>   -->
         <table class="u-full-width">
             <thead>
                 <tr>
@@ -48,7 +45,7 @@
         </table>
     </form>
 
-    <script type='text/template' id='contactTemplate' class='id_active'>
+    <script type='text/template' id='contactTemplate'>
         <tr data-contact-id='{{Id}}' class='{{class}}'>
             <td>{{Name}}</td>
             <td>{{Surname}}</td>
@@ -56,6 +53,15 @@
             <td><button type='button' value='delete'>Delete</button></td>
             <td><button type='button' value='edit'>Edit</button></td>
         </tr>
+    </script>
+
+    <script type='text/template' id='popUpTemplate'>
+        <div class='popUpInfo'>
+            <div>{{Name}}</div>
+            <div>{{Surname}}</div>
+            <div>{{Phone}}</div>
+            <div>{{Email}}</div>
+        </div>
     </script>
  
 </body>

@@ -18,7 +18,9 @@ const contactPhoneInput = document.getElementById('phoneInput');
 const contactSurnameInput = document.getElementById('surnameInput');
 const contactTemplate = document.getElementById('contactTemplate').innerHTML;
 const tfootTr = document.getElementsByTagName('tfoot')[0].children[0];
-
+const popUpTemplate = document.getElementById('popUpTemplate').innerHTML;
+let popUp;
+let wrapper;
 let contacts = [];
 init();
 
@@ -94,11 +96,12 @@ function onTableBodyClick(event){
 
     } else if (event.target.tagName === 'BUTTON' && event.target.value === 'edit'){ 
         renderEditForm(event.target.parentNode.parentNode);
+
     } else {
         const contactId = event.target.parentNode.dataset.contactId;
 
         fetch(DATA_URL + '/' + contactId)
-          .then((resp) => resp.json())
+          .then(resp => resp.json())
           .then(showContactInfo);
      }
 };
@@ -120,17 +123,29 @@ function updateContact(contact) {
     })
 }
 
-// function showContactInfo(contact){
-//     const popUp = document.getElementById('wrapper');
-//     popUp.classList.add('activeWrapper');
-//     popUp.innerHTML = JSON.stringify(contact);
-// };
-
 function showContactInfo(contact) {
-    const popUp = document.getElementById('popUp');
-    popUp.classList.add('activePopUp');
-    popUp.innerHTML = JSON.stringify(contact);
+    popUp = document.createElement('div');
+    popUp.className = 'activePopUp';
+    popUp.innerHTML =  popUpTemplate
+            .replace('{{Name}}', contact.name)
+            .replace('{{Surname}}', contact.surname)
+            .replace('{{Phone}}', contact.phone)
+            .replace('{{Email}}', contact.email);
+
+    wrapper = document.createElement('div');
+    wrapper.className = 'activeWrapper';
+    document.body.append(wrapper); 
+    document.body.append(popUp);   
+    
+    document.addEventListener('click', closePopUp);
 };
+
+function closePopUp(){                                   
+    popUp.remove();
+    wrapper.remove();
+
+    document.removeEventListener('click', closePopUp);
+}
 
 
 function createEditForm(){                                   
@@ -169,6 +184,8 @@ function renderEditForm(contactNode){
     phoneInput.value = contact.phone;
 
     contactNode.parentNode.insertBefore(editForm, contactNode.nextSibling);
+
+    document.removeEventListener('click', updateContact);
 };
 
 function findContact(id) {
