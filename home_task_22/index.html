@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" href="./skeleton.css">
+    <link rel="stylesheet" href="./style.css">
+    <script defer src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script defer src="index.js"></script>
+</head>
+
+<body>
+
+    <div id='notepad'>
+        <header>
+            <button type='button' value='add' class='addModalButton button'>Add</button>
+        </header>
+        <main></main>
+    </div>
+
+
+    
+    <div class='modalWrapper inactive'>
+            <form id="modalForm">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th colspan='2'>Title</th>
+                        </tr>
+                        <tr>
+                            <td colspan='2'>
+                                <input type='text' id='titleInput'>
+                            </td>
+                        </tr>
+                    </thead>
+        
+                    <tbody>
+                        <tr>
+                            <th colspan='2'>Descriptions</th>
+                        </tr>
+                        <tr>
+                            <td colspan='2'>
+                                <textarea id='descriptionTextarea' type='text'></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>                 
+                            <td>
+                                <button id='saveNote' type='button' class='button'>Save</button>
+                            </td>
+                            <td>
+                                <button id='cancelNote' type='button' class='button'>cancel</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </form>
+    </div>
+
+    <script type='text/template' id='noteTemplate'>
+        <div class='note'>
+            <div class="title">
+                <h6>Title</h6>
+                <button type="button" value="delete" class='button'>&#10006</button>
+            </div>
+            <div>{{title}}</div>
+            <h6>Description</h6>
+            <div>{{description}}</div>
+
+        </div>
+    </script>
+ 
+</body>
+</html>
