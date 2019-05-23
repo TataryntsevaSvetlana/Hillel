@@ -1,0 +1,82 @@
+#contacts {
+    width: 100%;
+    background-color: rgb(125, 161, 130);
+}
+
+#contacts header{
+    height: 100px;
+    padding: 10px;
+}
+#contacts main{
+    padding: 10px;
+}
+.inactive {
+    display: none;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    cursor: pointer;
+    border: 2px solid rgb(141, 141, 141);
+    margin: 0;
+}
+.button:hover,
+.note button:hover{
+    border-color: rgb(214, 214, 214);
+}
+
+#contacts .addContactButton {
+    float: right;
+}
+
+.deleteButton {
+    margin: 0 auto;
+}
+
+.u-full-width th,
+.u-full-width td{
+    text-align: center;
+}
+
+.u-full-width tr {
+    cursor: pointer;
+}
+.inactive,
+.hidden{
+    display: none;
+}
+
+#modalForm {
+    background-color: rgb(168, 205, 173);
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -300px;
+    border: 1px solid gray;
+    padding: 5px;
+}
+
+#modalForm .table {
+    width: 600px;
+    height: 200px;
+    margin: 0;
+}
+
+#modalForm input{
+    width: 100%;
+    padding: 5px;
+}
+
+.modalWrapper {
+    background-color: rgba(51, 51, 51, 0.4);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}

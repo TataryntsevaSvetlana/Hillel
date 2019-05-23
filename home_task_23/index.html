@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" href="./skeleton.css">
+    <link rel="stylesheet" href="./style.css">
+    <script defer src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script defer src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script defer src="index.js"></script>
+</head>
+
+<body>
+
+    <div id='contacts'>
+        <header>
+            <button type='button' value='add' class='addContactButton button'>Add contact</button>
+        </header>
+
+        <main>
+            <table class="u-full-width" >
+
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody id='contactsList'></tbody>
+            </table>
+        </main>
+    </div>
+
+
+
+
+
+    <div class='modalWrapper inactive'>
+        <form id="modalForm">
+                <fieldset>
+                    <label >Name
+                        <input type='text' id='nameInput'>
+                    </label>
+
+                    <label >Surname
+                        <input type='text' id='surnameInput'>
+                    </label>
+
+                    <label>Phone
+                        <input type='tel' id='phoneInput'>
+                    </label>
+
+                    <label>Email
+                        <input type='text' id='emailInput'>
+                    </label>
+                    <input class='hidden' id="editInput" type='text'>
+
+                    <button type='submit' id='saveContactBtn'>Save contact</button>
+                    <button type='button' id='closeModalBtn'>Cancel</button>
+                </fieldset>
+        </form>
+    </div>
+
+    <script type='text/template' id='contactTemplate'>
+        <tr data-contact-id='{{Id}}' class='{{class}}'>
+            <td>{{Name}}</td>
+            <td>{{Surname}}</td>
+            <td>{{Phone}}</td>
+            <td>{{Email}}</td>
+            <td><button type='button' value='delete'>Delete</button></td>
+            <td><button type='button' value='edit'>Edit</button></td>
+        </tr>
+    </script>
+</body>
+</html>
